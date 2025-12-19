@@ -1,0 +1,41 @@
+module Lab3 where
+import Daml.Script
+
+import DA.List ((!!))
+import DA.Map as Map
+
+song: [(Text, Text)]
+song = [("do", "a deer, a female deer"), ("re", "a drop of golden sun"), ("mi", "a name, I call myself"), ("fa", "a long long way to run")]
+
+extract: [(Text, Text)] -> ([Text], [Text])
+extract lst = 
+    let
+        note1 = fst (lst !! 0)
+        note2 = fst (lst !! 1)
+        note3 = fst (lst !! 2)  
+        note4 = fst (lst !! 3)
+        lyric1 = snd (lst !! 0)
+        lyric2 = snd (lst !! 1)     
+        lyric3 = snd (lst !! 2)
+        lyric4 = snd (lst !! 3)
+
+        notes = [note1, note2, note3, note4]
+        lyrics = [lyric1, lyric2, lyric3, lyric4]
+    in
+        (notes, lyrics)
+
+createNotesMap: [(Text, Text)] -> Map Text Text
+createNotesMap lst= Map.fromList lst
+
+
+
+testLab3 : Script ()
+testLab3 = script do
+    let (notes, lyrics) = extract song
+    debug $ "Notes: " <> show notes
+    debug $ "Lyrics: " <> show lyrics
+    debug $ "reversed note: " <> show (reverse notes)
+    debug $ "reversed lyric: " <> show (reverse lyrics)
+    let notesMap = createNotesMap song
+    debug $ "Notes Map: " <> show notesMap
+    debug $ "Lookup 'mi': " <> show (Map.lookup "mi" notesMap)

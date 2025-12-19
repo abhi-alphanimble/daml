@@ -1,0 +1,26 @@
+module ListExample where
+import DA.List
+import Daml.Script
+
+listTest: Script ()
+listTest = script do 
+    let 
+        noList = [1,5,20,3]
+        fruits = ["apple", "banana", "cherry","Apricot"]
+        rangeList = [1..10]
+        evenlist = [2,4..20]
+        oddlist = [1,3..19]
+    debug $ "Odd List: " <> show oddlist
+    debug $ "Even List: " <> show evenlist
+    debug $ "Range List: " <> show rangeList
+    debug $ "NoList: " <> show noList
+    debug $ "Fruits: " <> show fruits
+    debug $ "Length of noList: " <> show (length noList)
+    debug $ "Head of fruits: " <> show (head fruits)
+    debug $ "Tail of noList: " <> show (tail noList)
+    debug $ "last of fruits: " <> show (last fruits)
+    debug $ "Sorted noList: " <> show (sort noList)
+    debug $ "sorted fruits: " <> show (sort fruits)
+    debug $ "Element: " <> show (elem "banana" fruits)
+    debug $ "sum of noList: " <> show (sum noList)
+   

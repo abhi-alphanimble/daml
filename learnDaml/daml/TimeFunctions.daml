@@ -1,0 +1,33 @@
+module TimeFunctions where
+import Daml.Script
+import DA.Time
+import DA.Date
+
+test: Script ()
+test = script do
+    now1 <- getTime
+    debug $ "Time: " <> show now1
+
+    let
+        now2 : Date 
+        now2 = date 2025 Dec 19
+
+        nowTime1: Time
+        nowTime1 = time now2 13 37 0
+        
+        
+        dateOfBirth: Date 
+        dateOfBirth = date 2003 Jul 23
+
+        timeOfBirth: Time
+        timeOfBirth = time dateOfBirth 19 45 0
+
+        age1: RelTime
+        age1 = (subTime nowTime1 timeOfBirth)
+
+    debug $ "Current Time: " <> show nowTime1
+    debug $ "DOB: " <> show dateOfBirth
+    debug $ "TOB: " <> show timeOfBirth
+    debug $ "Age: " <> show age1
+
+    return ()

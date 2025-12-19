@@ -1,0 +1,19 @@
+module MapExample where
+import DA.Map as Map
+import Daml.Script
+
+test: Script ()
+test = script do
+    let
+        wordMap: Map Int Text
+        wordMap = Map.empty
+    let 
+        words = [ (1, "Hello"), (2, "DAML"), (3, "World") ]
+        wordMap = Map.fromList words
+    debug $ Map.size wordMap
+    debug $ show wordMap
+    debug $ Map.lookup 2 wordMap
+    let wordMap2 = Map.insert 4 "!" wordMap
+    debug $ Map.size wordMap2
+    debug $ Map.lookup 4 wordMap2
+    debug $ show wordMap2

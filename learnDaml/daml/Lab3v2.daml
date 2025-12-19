@@ -1,0 +1,21 @@
+module Lab3v2 where
+import Daml.Script
+import DA.Text (words)
+
+toDecimal: Int -> Decimal
+toDecimal n = intToDecimal n
+
+termFrequency: Text -> Text -> Decimal
+termFrequency term text=
+    let 
+        wordList = words text 
+        totalWords = length wordList
+
+        termCount = length (filter (\x -> x == term) wordList)
+        freq = toDecimal termCount / toDecimal totalWords
+    in
+        freq
+
+test: Script ()
+test = script do
+    debug $ "term Frequency: " <> show (termFrequency "The" "the cat and The dog")

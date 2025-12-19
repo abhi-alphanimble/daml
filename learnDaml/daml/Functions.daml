@@ -1,0 +1,25 @@
+module Functions where
+import Daml.Script
+
+increment: Int -> Int ->Int
+increment x y = x + y
+
+interest: Decimal -> Decimal -> Decimal -> Decimal
+interest p t r = (p * t * r) / 100.0
+
+quadFunction: Int -> Int -> Int -> Int
+quadFunction x y z = (3 *(x * x)) + (2 * y) + z
+
+doubleMe: Int -> Int
+doubleMe x = x * 2
+
+doubleUs: Int -> Int -> Int
+doubleUs x y = doubleMe(increment x y)
+
+testFunctions : Script ()
+testFunctions = script do
+    debug $ increment 5 10
+    debug $ interest 1000.5 2.1 3.4
+    debug $ quadFunction 1 2 3
+    debug $ doubleMe 3
+    debug $ doubleUs 3 4

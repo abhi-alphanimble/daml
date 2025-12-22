@@ -1,0 +1,29 @@
+module Labv2 where
+
+import Daml.Script
+
+-- Define the Person data type
+data Person = Person with
+    name : Text
+    email : Text
+  deriving (Show, Eq)
+
+-- Define the Reachable type class
+class Reachable i where
+  reachOut : i -> Text
+
+-- Make Person an instance of Reachable
+instance Reachable Person where
+  reachOut p = "Hello " <> p.name <> " at " <> p.email
+
+-- Test script
+testReachable : Script ()
+testReachable = script do
+    let
+        myFriend = Person with 
+            name = "Alice"
+            email = "alice@earth.com"
+
+        message : Text = reachOut myFriend
+
+    debug message

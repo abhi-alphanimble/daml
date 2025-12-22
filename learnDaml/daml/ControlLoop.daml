@@ -1,0 +1,31 @@
+module ControlLoop where
+import Daml.Script
+
+ifOddOrEven : Int -> Text
+ifOddOrEven n =
+  if (n % 2 == 0) then "Even" else "Odd"
+
+findBMI : Decimal -> Decimal -> Text
+findBMI weight height 
+  | weight / (height ^ 2) <= 18.5 = "Underweight"
+  | weight / (height ^ 2) <= 25.0 = "Normal weight"
+  | weight / (height ^ 2) <= 30.0 = "Overweight"
+  | otherwise = "Obesity"
+
+someFunction : Int -> Either Text Int
+someFunction n =
+  if n < 0 then Left "Negative number"
+  else Right (n * 2)
+
+caseEvenOdd : Int -> Text
+caseEvenOdd n = case (n % 2) of
+    0 -> "Even"
+    1 -> "Odd"
+    _ -> "Impossible"
+
+test: Script ()
+test = script do
+    debug $ ifOddOrEven 5
+    debug $ findBMI 104.9 1.76
+    debug $ caseEvenOdd 8
+    debug $ someFunction (-3)

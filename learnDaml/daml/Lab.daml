@@ -1,0 +1,23 @@
+module Lab where
+import Daml.Script
+
+data Person = Person with
+    name: Text
+    email: Text
+  deriving (Show, Eq, Ord)
+
+testPerson: Script ()
+testPerson = script do 
+    let 
+        person1 = Person with 
+            name = "Alice"
+            email = "alice@earth.com"
+    
+        person2 = Person with 
+            name = "Bob"
+            email = "bob@earth.com"
+
+    debug person1
+    debug $ person1 == person2
+    debug $ person1 < person2
+

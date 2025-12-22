@@ -1,0 +1,30 @@
+module Typeclasses where
+import Daml.Script
+import DA.Text (sha256)
+
+class Encryptable i o where
+    encrypt: i -> o
+
+data PersonalRecord = PersonalRecord with
+    name: Text
+    id: Int
+    age: Int
+  deriving (Show, Eq)
+
+instance Encryptable PersonalRecord Text where
+    encrypt record = sha256 (record.name <> show(record.id) <> show(record.age))
+testTypeclass: Script ()
+testTypeclass = script do
+    let
+        record1 = PersonalRecord with 
+            name = "Alice" 
+            id = 1
+            age = 30
+    let
+        record2 = PersonalRecord with 
+            name = "Bob" 
+            id = 2
+            age = 25
+        
+        encrypted2 = encrypt record2
+    debug $ "Encrypted Record 2: " <> encrypted2
